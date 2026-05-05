@@ -7,7 +7,7 @@ input [3:0] Cmd,
 output reg [2*WIDTH-1:0] Res,
 output reg OFlow,C_out, G, L, E, Err);
 
-reg [2*WIDTH-1:0]Inter,Inter1,Inter2;
+reg [2*WIDTH-1:0]Inter;
 reg [WIDTH-1:0] O_A, O_B;
 reg [3:0] O_Cmd;
 reg OFlow1, G1, L1, F1, E1, Err1,O_M;
