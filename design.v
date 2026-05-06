@@ -15,18 +15,18 @@ reg OFlow1, G1, L1, F1, E1, Err1,O_M;
 always @ (posedge clk or posedge rst) begin
         if (rst) begin
                 Inter<={(2*WIDTH){1'b0}};
-		OFlow1<=1'b0;
+		        OFlow1<=1'b0;
                 G1<=1'b0;
                 L1<=1'b0;
                 E1<=1'b0;
-		F1=1'b0;
+		        F1=1'b0;
                 Err1<=1'b0;
         end else if (C_En) begin
                 OFlow1<=1'b0;
                 G1<=1'b0;
                 L1<=1'b0;
                 E1<=1'b0;
-		F1<=1'b0;
+		        F1<=1'b0;
                 Err1<=1'b0;
 		        Inter<={(2*WIDTH){1'b0}};
 		if (M) begin
@@ -99,27 +99,27 @@ always @ (posedge clk or posedge rst) begin
 			 	end
 			 end
 			 4'd9:begin
-                 		if (In_V==2'b11) begin
-                     			if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
-                         			Inter<={(2*WIDTH){1'bx}};
-                     			end else begin
-                         			Inter<=((Op_A+1)*(Op_B+1));
-                     			end
-                 		end else begin
-                     			Err1<=1'b1;
-                 		end
-             		 end
+                 if (In_V==2'b11) begin
+                     if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
+                         Inter<={(2*WIDTH){1'bx}};
+                     end else begin
+                         Inter<=((Op_A+1)*(Op_B+1));
+                     end
+                 end else begin
+                     Err1<=1'b1;
+                 end
+             end
 			 4'd10:begin
-                 		if (In_V==2'b11) begin
-                     			if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
-                         			Inter<={(2*WIDTH){1'bx}};
-                     			end else begin
-                         			Inter<=((Op_A<<1)*Op_B);
-                     			end
-                 		end else begin
-                     			Err1<=1'b1;
-                 		end
-             		 end
+                 if (In_V==2'b11) begin
+                     if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
+                         Inter<={(2*WIDTH){1'bx}};
+                     end else begin
+                         Inter<=((Op_A<<1)*Op_B);
+                     end
+                 end else begin
+                     Err1<=1'b1;
+                 end
+             end
 			 4'd11:begin
 			 	if (In_V==2'b11) begin
 			 		Inter<=$signed($signed(Op_A)+$signed(Op_B));
@@ -243,7 +243,7 @@ always @ (posedge clk or posedge rst) begin
 			 default:Err1<=1'b1;
 			endcase
 		end
-    	end
+    end
 end
 
 always @ (posedge clk or posedge rst) begin
@@ -270,11 +270,11 @@ always @ (posedge clk or negedge rst) begin
                 E<=1'b0;
                 Err<=1'b0;
 	end else if (C_En) begin
-        	G<=G1;
-        	L<=L1;
-        	E<=E1;
-        	Err<=Err1;
-        	Res<=Inter;
+        G<=G1;
+        L<=L1;
+        E<=E1;
+        Err<=Err1;
+        Res<=Inter;
 		case({M,Cmd})
 		  5'b10000:C_out<=Inter[WIDTH];
 		  5'b10001:OFlow<=OFlow1;
