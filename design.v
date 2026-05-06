@@ -28,222 +28,222 @@ always @ (posedge clk or posedge rst) begin
                 E1<=1'b0;
 		F1<=1'b0;
                 Err1<=1'b0;
-		Inter<={(2*WIDTH){1'b0}};
+		        Inter<={(2*WIDTH){1'b0}};
 		if (M) begin
 			case(Cmd)
-			4'd0:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A+Op_B;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd1:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A-Op_B;
-					OFlow1<=(Op_A<Op_B);
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd2:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A+Op_B+C_in;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd3:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A-Op_B-C_in;
-					OFlow1<=(Op_A<(Op_B+C_in));
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd4:begin
-				if ((In_V==2'b11)||(In_V==2'b01)) begin
-					Inter[WIDTH-1:0]<=Op_A+1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd5:begin
-				if ((In_V==2'b11)||(In_V==2'b01)) begin
-					Inter[WIDTH-1:0]<=Op_A-1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd6:begin
-				if ((In_V==2'b11)||(In_V==2'b10)) begin
-					Inter[WIDTH-1:0]<=Op_B+1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd7:begin
-				if ((In_V==2'b11)||(In_V==2'b10)) begin
-					Inter[WIDTH-1:0]<=Op_B-1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd8:begin
-				if (In_V==2'b11) begin
-					G1<=(Op_A>Op_B);
-					L1<=(Op_A<Op_B);
-					E1<=(Op_A==Op_B);
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd9:begin
-                if (In_V==2'b11) begin
-                    if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
-                        Inter<={(2*WIDTH){1'bx}};
-                    end else begin
-                        Inter<=((Op_A+1)*(Op_B+1));
-                    end
-                end else begin
-                    Err1<=1'b1;
-                end
-            end
-			4'd10:begin
-                if (In_V==2'b11) begin
-                    if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
-                        Inter<={(2*WIDTH){1'bx}};
-                    end else begin
-                        Inter<=((Op_A<<1)*Op_B);
-                    end
-                end else begin
-                    Err1<=1'b1;
-                end
-            end
-			4'd11:begin
-				if (In_V==2'b11) begin
-					Inter<=$signed(Op_A+Op_B);
-					OFlow1<=(Op_A[WIDTH-1]==Op_B[WIDTH-1]);
-					F1<=Op_A[WIDTH-1];
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd12:begin
-				if (In_V==2'b11) begin
-					Inter<=$signed(Op_A-Op_B);
-					OFlow1<=(Op_A[WIDTH-1]!=Op_B[WIDTH-1]);
-					F1<=Op_A[WIDTH-1];
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			default:Err1<=1'b1;
+			 4'd0:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A+Op_B;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd1:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A-Op_B;
+			 		OFlow1<=(Op_A<Op_B);
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd2:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A+Op_B+C_in;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd3:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A-Op_B-C_in;
+			 		OFlow1<=(Op_A<(Op_B+C_in));
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd4:begin
+			 	if ((In_V==2'b11)||(In_V==2'b01)) begin
+			 		Inter[WIDTH-1:0]<=Op_A+1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd5:begin
+			 	if ((In_V==2'b11)||(In_V==2'b01)) begin
+			 		Inter[WIDTH-1:0]<=Op_A-1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd6:begin
+			 	if ((In_V==2'b11)||(In_V==2'b10)) begin
+			 		Inter[WIDTH-1:0]<=Op_B+1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd7:begin
+			 	if ((In_V==2'b11)||(In_V==2'b10)) begin
+			 		Inter[WIDTH-1:0]<=Op_B-1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd8:begin
+			 	if (In_V==2'b11) begin
+			 		G1<=(Op_A>Op_B);
+			 		L1<=(Op_A<Op_B);
+			 		E1<=(Op_A==Op_B);
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd9:begin
+                 		if (In_V==2'b11) begin
+                     			if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
+                         			Inter<={(2*WIDTH){1'bx}};
+                     			end else begin
+                         			Inter<=((Op_A+1)*(Op_B+1));
+                     			end
+                 		end else begin
+                     			Err1<=1'b1;
+                 		end
+             		 end
+			 4'd10:begin
+                 		if (In_V==2'b11) begin
+                     			if ((Op_A!=O_A)||(Op_B!=O_B)||(Cmd!=O_Cmd)||(M!=O_M)) begin
+                         			Inter<={(2*WIDTH){1'bx}};
+                     			end else begin
+                         			Inter<=((Op_A<<1)*Op_B);
+                     			end
+                 		end else begin
+                     			Err1<=1'b1;
+                 		end
+             		 end
+			 4'd11:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=$signed($signed(Op_A)+$signed(Op_B));
+			 		OFlow1<=(Op_A[WIDTH-1]==Op_B[WIDTH-1]);
+			 		F1<=Op_A[WIDTH-1];
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd12:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=$signed($signed(Op_A)-$signed(Op_B));
+			 		OFlow1<=(Op_A[WIDTH-1]!=Op_B[WIDTH-1]);
+			 		F1<=Op_A[WIDTH-1];
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 default:Err1<=1'b1;
 			endcase
 		end else begin
 			case(Cmd)
-			4'd0:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A&Op_B;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd1:begin
-				if (In_V==2'b11) begin
-					Inter<=~(Op_A&Op_B);
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd2:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A|Op_B;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd3:begin
-				if (In_V==2'b11) begin
-					Inter<=~(Op_A|Op_B);
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd4:begin
-				if (In_V==2'b11) begin
-					Inter<=Op_A^Op_B;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd5:begin
-				if (In_V==2'b11) begin
-					Inter<=~(Op_A^Op_B);
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd6:begin
-				if ((In_V==2'b11)||(In_V==2'b01)) begin
-					Inter<=~Op_A;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd7:begin
-				if ((In_V==2'b11)||(In_V==2'b10)) begin
-					Inter<=~Op_B;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd8:begin
-				if ((In_V==2'b11)||(In_V==2'b01)) begin
-					Inter[WIDTH-1:0]<=Op_A>>1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd9:begin
-				if ((In_V==2'b11)||(In_V==2'b01)) begin
-					Inter[WIDTH-1:0]<=Op_A<<1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd10:begin
-				if ((In_V==2'b11)||(In_V==2'b10)) begin
-					Inter[WIDTH-1:0]<=Op_B>>1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd11:begin
-				if ((In_V==2'b11)||(In_V==2'b10)) begin
-					Inter[WIDTH-1:0]<=Op_B<<1;
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd12:begin
-				if ((In_V==2'b11)&&(Op_B[WIDTH-1:($clog2(WIDTH)+1)]=={(WIDTH-1-($clog2(WIDTH))){1'b0}})) begin
-					Inter[WIDTH-1:0] <= (Op_A<<Op_B[$clog2(WIDTH)-1:0]) | (Op_A>>(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			4'd13:begin
-				if ((In_V==2'b11)&&(Op_B[WIDTH-1:($clog2(WIDTH)+1)]=={(WIDTH-1-($clog2(WIDTH))){1'b0}})) begin
-					Inter[WIDTH-1:0] <= (Op_A>>Op_B[$clog2(WIDTH)-1:0]) | (Op_A<<(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
-				end else begin
-					Err1<=1'b1;
-				end
-			end
-			default:Err1<=1'b1;
+			 4'd0:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A&Op_B;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd1:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=~(Op_A&Op_B);
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd2:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A|Op_B;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd3:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=~(Op_A|Op_B);
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd4:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=Op_A^Op_B;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd5:begin
+			 	if (In_V==2'b11) begin
+			 		Inter<=~(Op_A^Op_B);
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd6:begin
+			 	if ((In_V==2'b11)||(In_V==2'b01)) begin
+			 		Inter<=~Op_A;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd7:begin
+			 	if ((In_V==2'b11)||(In_V==2'b10)) begin
+			 		Inter<=~Op_B;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd8:begin
+			 	if ((In_V==2'b11)||(In_V==2'b01)) begin
+			 		Inter[WIDTH-1:0]<=Op_A>>1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd9:begin
+			 	if ((In_V==2'b11)||(In_V==2'b01)) begin
+			 		Inter[WIDTH-1:0]<=Op_A<<1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd10:begin
+			 	if ((In_V==2'b11)||(In_V==2'b10)) begin
+			 		Inter[WIDTH-1:0]<=Op_B>>1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd11:begin
+			 	if ((In_V==2'b11)||(In_V==2'b10)) begin
+			 		Inter[WIDTH-1:0]<=Op_B<<1;
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd12:begin
+			 	if ((In_V==2'b11)&&(Op_B[WIDTH-1:($clog2(WIDTH)+1)]=={(WIDTH-1-($clog2(WIDTH))){1'b0}})) begin
+			 		Inter[WIDTH-1:0] <= (Op_A<<Op_B[$clog2(WIDTH)-1:0]) | (Op_A>>(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 4'd13:begin
+			 	if ((In_V==2'b11)&&(Op_B[WIDTH-1:($clog2(WIDTH)+1)]=={(WIDTH-1-($clog2(WIDTH))){1'b0}})) begin
+			 		Inter[WIDTH-1:0] <= (Op_A>>Op_B[$clog2(WIDTH)-1:0]) | (Op_A<<(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
+			 	end else begin
+			 		Err1<=1'b1;
+			 	end
+			 end
+			 default:Err1<=1'b1;
 			endcase
 		end
-    end
+    	end
 end
 
 always @ (posedge clk or posedge rst) begin
@@ -276,16 +276,16 @@ always @ (posedge clk or negedge rst) begin
         	Err<=Err1;
         	Res<=Inter;
 		case({M,Cmd})
-		5'b10000:C_out<=Inter[WIDTH];
-		5'b10001:OFlow<=OFlow1;
-		5'b10010:C_out<=Inter[WIDTH];
-		5'b10011:OFlow<=OFlow1;
-		5'b11011:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
-		5'b11100:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
-		default:begin
-			C_out<=1'b0;
-			OFlow<=1'b0;
-		end
+		  5'b10000:C_out<=Inter[WIDTH];
+		  5'b10001:OFlow<=OFlow1;
+		  5'b10010:C_out<=Inter[WIDTH];
+		  5'b10011:OFlow<=OFlow1;
+		  5'b11011:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
+		  5'b11100:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
+		  default:begin
+		  	C_out<=1'b0;
+		  	OFlow<=1'b0;
+		  end
 		endcase
 	end
 end
