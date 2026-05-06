@@ -15,20 +15,20 @@ reg OFlow1, G1, L1, F1, E1, Err1,O_M;
 always @ (posedge clk or posedge rst) begin
         if (rst) begin
                 Inter<={(2*WIDTH){1'b0}};
-		        OFlow1<=1'b0;
+		OFlow1<=1'b0;
                 G1<=1'b0;
                 L1<=1'b0;
                 E1<=1'b0;
-		        F1=1'b0;
+		F1=1'b0;
                 Err1<=1'b0;
         end else if (C_En) begin
                 OFlow1<=1'b0;
                 G1<=1'b0;
                 L1<=1'b0;
                 E1<=1'b0;
-		        F1<=1'b0;
+		F1<=1'b0;
                 Err1<=1'b0;
-		        Inter<={(2*WIDTH){1'b0}};
+		Inter<={(2*WIDTH){1'b0}};
 		if (M) begin
 			case(Cmd)
 			4'd0:begin
@@ -41,8 +41,7 @@ always @ (posedge clk or posedge rst) begin
 			4'd1:begin
 				if (In_V==2'b11) begin
 					Inter<=Op_A-Op_B;
-					OFlow1<=(Op_A[WIDTH-1]!=Op_B[WIDTH-1]);
-					F1<=Op_A[WIDTH-1];
+					OFlow1<=(Op_A<Op_B);
 				end else begin
 					Err1<=1'b1;
 				end
@@ -271,23 +270,18 @@ always @ (posedge clk or negedge rst) begin
                 E<=1'b0;
                 Err<=1'b0;
 	end else if (C_En) begin
-        G<=G1;
-        L<=L1;
-        E<=E1;
-        Err<=Err1;
-        Res<=Inter;
+        	G<=G1;
+        	L<=L1;
+        	E<=E1;
+        	Err<=Err1;
+        	Res<=Inter;
 		case({M,Cmd})
-		5'b10001:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
 		5'b10000:C_out<=Inter[WIDTH];
 		5'b10001:OFlow<=OFlow1;
 		5'b10010:C_out<=Inter[WIDTH];
 		5'b10011:OFlow<=OFlow1;
-		5'b11011:begin
-			OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
-		end
-		5'b11100:begin
-			OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
-		end
+		5'b11011:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
+		5'b11100:OFlow<=OFlow1&&(F1!=Inter[WIDTH-1]);
 		default:begin
 			C_out<=1'b0;
 			OFlow<=1'b0;
