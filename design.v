@@ -237,6 +237,7 @@ always @ (posedge clk or posedge rst) begin
 			 		Inter[WIDTH-1:0] <= (Op_A<<Op_B[$clog2(WIDTH)-1:0]) | (Op_A>>(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
 			 	end else begin
 			 		Err1<=1'b1;
+			 		Inter[WIDTH-1:0] <= (Op_A<<Op_B[$clog2(WIDTH)-1:0]) | (Op_A>>(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
 			 	end
 			 end
 			 4'd13:begin
@@ -244,6 +245,7 @@ always @ (posedge clk or posedge rst) begin
 			 		Inter[WIDTH-1:0] <= (Op_A>>Op_B[$clog2(WIDTH)-1:0]) | (Op_A<<(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
 			 	end else begin
 			 		Err1<=1'b1;
+			 		Inter[WIDTH-1:0] <= (Op_A>>Op_B[$clog2(WIDTH)-1:0]) | (Op_A<<(WIDTH-Op_B[$clog2(WIDTH)-1:0]));
 			 	end
 			 end
 			 default:Err1<=1'b1;
