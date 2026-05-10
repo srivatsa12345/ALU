@@ -28,9 +28,9 @@ always @ (posedge clk or posedge rst) begin
                 G1<=1'b0;
                 L1<=1'b0;
                 E1<=1'b0;
-                        F1<=1'b0;
+                F1<=1'b0;
                 Err1<=1'b0;
-                        Inter<={(2*WIDTH){1'b0}};
+                Inter<={(2*WIDTH){1'b0}};
                 if (M) begin
                         case(Cmd)
                          4'd0:begin
@@ -310,4 +310,3 @@ always @ (posedge clk or negedge rst) begin
         end
 end
 endmodule
-
