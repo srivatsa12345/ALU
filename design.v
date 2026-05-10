@@ -268,7 +268,7 @@ always @ (posedge clk or posedge rst) begin
     end
 end
 
-always @ (posedge clk or negedge rst) begin
+always @ (posedge clk or posedge rst) begin
         if (rst) begin
                 Res<={(2*WIDTH){1'b0}};
                 OFlow<=1'b0;
