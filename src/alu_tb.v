@@ -24,9 +24,9 @@ module alu_testbench;
     integer fail_count = 0;
     integer test_count = 0;
 
-     alu #(.WIDTH(8)) m1(.clk(CLK),.rst(RST),.M(MODE),.C_En(CE),.C_in(CIN),
-        .Op_A(OPA),.Op_B(OPB),.In_V(INV), .Cmd(CMD),
-        .Res(RES_dut), .OFlow(OFLOW_dut),.C_out(COUT_dut), .G(G_dut), .L(L_dut), .E(E_dut), .Err(ERR_dut));
+     alu1 #(.WIDTH(4)) m1(.clk(CLK),.rst(RST),.mode(MODE),.ce(CE),.cin(CIN),
+        .opa(OPA),.opb(OPB),.inp_valid(INV), .cmd(CMD),
+        .res(RES_dut), .oflow(OFLOW_dut),.cout(COUT_dut), .g(G_dut), .l(L_dut), .e(E_dut), .err(ERR_dut));
 
 
     // Reference model instantiation
@@ -59,7 +59,7 @@ module alu_testbench;
         RST = 1; CE = 1'b1; CIN = 0;
         OPA = 0; OPB = 0; MODE = 0; CMD = 0;INV=2'b11;
 
-        @(posedge CLK);
+        @(negedge CLK);
         @(posedge CLK);
         test_reset("RESET");
         RST = 0;  // Release reset
@@ -97,9 +97,16 @@ module alu_testbench;
         test_mult();
         
         
-        @(posedge CLK);
+        @(negedge CLK);
         CE=1'b1;
+        @(posedge CLK);
         // Summary
+        RST=1;
+        @(negedge CLK);
+        @(posedge CLK);
+        test_reset("RESET");
+        RST = 0;  // Release reset
+        @(posedge CLK);
         INV=2'b00;
         @(posedge CLK);
         $display("\n=== INPUT_VALID=2'b00 ===");
@@ -169,7 +176,7 @@ module alu_testbench;
     
     task test_hold();
         begin
-	    @(posedge CLK);
+	    @(negedge CLK);
             CE=1'b0;
             RES_hold<=RES_dut;
             COUT_hold<=COUT_dut;
@@ -280,10 +287,24 @@ module alu_testbench;
             apply_test(8'h00, 8'h80, 4'b1011, "LS_B");
 
             // CMP
+            apply_test(8'hAA, 8'h00, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h01, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h02, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h03, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h04, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h05, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h06, 4'b1100, "ROL");
+            apply_test(8'hAA, 8'h07, 4'b1100, "ROL");
             apply_test(8'hAA, 8'h0B, 4'b1100, "ROL");
             apply_test(8'hAA, 8'hFB, 4'b1100, "ROL");
-            apply_test(8'hAA, 8'h00, 4'b1100, "ROL");
             apply_test(8'hAA, 8'h00, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h01, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h02, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h03, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h04, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h05, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h06, 4'b1101, "ROR");
+            apply_test(8'hAA, 8'h07, 4'b1101, "ROR");
             apply_test(8'hAA, 8'h0B, 4'b1101, "ROR");
             apply_test(8'hAA, 8'hFB, 4'b1101, "ROR");
 
